@@ -5,20 +5,20 @@ global:
 
 #node_exporter
 scrape_configs:
-  - job_name: 'node_exporter'  
+  - job_name: 'node_exporter' 
     static_configs:
       - targets:
-          - '192.168.50.140:9100' # указать Ip откуда берется метрика
+          - '192.168.50.200:9100' # указать Ip откуда берется метрика
         labels:
-          server: 'srv-hv1' # указать в ковычках название сервера, для удобного 
+          server: 'srv-hv1' # указать в ковычках название сервера, для удобного отображения в grafana
 
       - targets:
-          - '192.168.50.141:9100'
+          - '192.168.50.201:9100'
         labels:
           server: 'srv-hv2'
 
       - targets:
-          - '192.168.50.142:9100'
+          - '192.168.50.202:9100'
         labels:
           server: 'srv-hv3'
 
@@ -26,17 +26,17 @@ scrape_configs:
   - job_name: 'promtail' 
     static_configs:
       - targets:
-          - '192.168.50.140:9080'
+          - '192.168.50.200:9080'
         labels:
           server: 'srv-hv1'
 
       - targets:
-          - '192.168.50.141:9080'
+          - '192.168.50.201:9080'
         labels:
           server: 'srv-hv2'
 
       - targets:
-          - '192.168.50.142:9080'
+          - '192.168.50.202:9080'
         labels:
           server: 'srv-hv3'
 
@@ -44,17 +44,17 @@ scrape_configs:
   - job_name: 'proxmox'  
     static_configs:
       - targets:
-          - '192.168.50.140'
+          - '192.168.50.200'
         labels:
           server: 'srv-hv1'
 
       - targets:
-          - '192.168.50.141'
+          - '192.168.50.201'
         labels:
           server: 'srv-hv2'
 
       - targets:
-          - '192.168.50.142'
+          - '192.168.50.202'
         labels:
           server: 'srv-hv3'
 
@@ -66,7 +66,7 @@ scrape_configs:
         target_label: __param_target
       - source_labels: [__param_target]
         target_label: instance
-      - target_label: __addresss__
+      - target_label: __address__
         replacement: myhost:9221  # PVE exporter. обязательно ip
 
 #loki
