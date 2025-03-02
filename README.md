@@ -357,4 +357,5 @@ clients:
 Ссылка на документацию по параметрам для promtail, для более гибкого сбора и отправки логов:  
 `https://grafana.com/docs/loki/latest/send-data/promtail/configuration/`
 
-Как создавать кастомные message в alertmanager/alertmanager.yaml, примеры и обьяснения htlm от grafana.com 
+Как создавать кастомные message в alertmanager/alertmanager.yaml, примеры и обьяснения htlm от grafana.com   
+`https://grafana.com/docs/grafana/latest/alerting/fundamentals/templates/`
