@@ -331,3 +331,30 @@ clients:
 
 `docker compose up -d`
 
+Теперь по ip адресу вирутальный машины с мониторингом по определенным портам мы можем подключаться:  
+:3000 - `grafana`
+:9090 - `prometheus`
+:9093 - `alertmanager`
+
+
+### Полезные ссылки и заметки
+Правила алертов для локи нужно помещать обязательно в папку fake, иначе не заработает, где будет лежать сама папка fake указано в loki-config.yaml, в нашем случае /etc/loki/rules  
+Монтируем правила так: `./loki/alert_rules.yaml:/etc/loki/rules/fake/alert_rules.yaml`   
+Где узнал: `https://stackoverflow.com/questions/76725522/loki-not-sending-alerts-to-alertmanager` и `https://github.com/grafana/loki/issues/5459`
+
+
+
+
+Настройка хранилища для loki/loki-config.yaml взята из первого тейплейта из документации:  
+`https://grafana.com/docs/loki/latest/configure/examples/configuration-examples/`
+
+Ссылка на документацию по настройкам, которые можно указать или изменит в loki/loki-config.yaml  
+`https://grafana.com/docs/loki/latest/configure/`
+
+Примелы правил для loki/alert_rules.yaml:  
+`https://grafana.com/docs/loki/latest/alert/#ruler-storage`
+
+Ссылка на документацию по параметрам для promtail, для более гибкого сбора и отправки логов:  
+`https://grafana.com/docs/loki/latest/send-data/promtail/configuration/`
+
+Как создавать кастомные message в alertmanager/alertmanager.yaml, примеры и обьяснения htlm от grafana.com 
