@@ -1,0 +1,11 @@
+groups:
+  - name: example_alerts
+    rules:
+      - alert: HighErrorRate
+        expr: sum by(server)(count_over_time({service_name!~""} | logfmt | level=~"error" or detected_level=~"error"[1h])) > 0
+        for: 1s
+        labels:
+          severity: Warning
+        annotations:
+          summary: "Обнаружены ошибки в логах сервера {{ $labels.server }}"
+          description: "За последний час было зарегистрировано более одной ошибки."

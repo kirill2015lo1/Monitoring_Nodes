@@ -1,0 +1,107 @@
+global:
+  scrape_interval: 15s  # Интервал сбора метрик
+  scrape_timeout: 15s # Время на сбор метрик (меньше или равно scrape_interval)
+  evaluation_interval: 30s   # Интервал проверки правил, нужно ли отправлять уведомления
+
+#node_exporter
+scrape_configs:
+  - job_name: 'node_exporter'  
+    static_configs:
+      - targets:
+          - '192.168.50.140:9100' # указать Ip откуда берется метрика
+        labels:
+          server: 'srv-hv1' # указать в ковычках название сервера, для удобного 
+
+      - targets:
+          - '192.168.50.141:9100'
+        labels:
+          server: 'srv-hv2'
+
+      - targets:
+          - '192.168.50.142:9100'
+        labels:
+          server: 'srv-hv3'
+
+#promtail
+  - job_name: 'promtail' 
+    static_configs:
+      - targets:
+          - '192.168.50.140:9080'
+        labels:
+          server: 'srv-hv1'
+
+      - targets:
+          - '192.168.50.141:9080'
+        labels:
+          server: 'srv-hv2'
+
+      - targets:
+          - '192.168.50.142:9080'
+        labels:
+          server: 'srv-hv3'
+
+#proxmox
+  - job_name: 'proxmox'  
+    static_configs:
+      - targets:
+          - '192.168.50.140'
+        labels:
+          server: 'srv-hv1'
+
+      - targets:
+          - '192.168.50.141'
+        labels:
+          server: 'srv-hv2'
+
+      - targets:
+          - '192.168.50.142'
+        labels:
+          server: 'srv-hv3'
+
+    metrics_path: /pve
+    params:
+      module: [default]
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __addresss__
+        replacement: myhost:9221  # PVE exporter. обязательно ip
+
+#loki
+  - job_name: 'loki'  # Имя задания для Node Exporter
+    static_configs:
+      - targets:
+          - 'loki:3100'
+        labels:
+          server: 'loki'
+#local node_exporter
+
+  - job_name: 'local_node_exporter'  # Имя задания для Node Exporter
+    static_configs:
+      - targets:
+          - 'node-exporter:9100'
+        labels:
+          server: 'localhost'
+
+#local cadvisor
+
+  - job_name: 'local_cadvisor'  # Имя задания для Node Exporter
+    static_configs:
+      - targets:
+          - 'cadvisor:8080'
+        labels:
+          server: 'localhost'
+
+#alertmanager
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+            - alertmanager:9093  # адрес alertmanager
+rule_files:
+  - "/etc/prometheus/alert_rules.yaml" #правила для алертов в каком файле будут
+
+remote_write:
+  - url: "http://victoria-metrics:8428/api/v1/write"  # Адрес VictoriaMetrics для записи данных

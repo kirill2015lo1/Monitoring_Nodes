@@ -1,0 +1,6 @@
+default:
+  user: "" 
+  token_name: ""
+  token_value: ""
+  verify_ssl: false
+# https://www.youtube.com/watch?v=PtsdThgnZqs&t=307s 

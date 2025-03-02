@@ -1,0 +1,119 @@
+services:
+  prometheus: 
+    image: prom/prometheus # Имя образа, можно заменить на нужный
+    container_name: prometheus
+    ports:
+      - "9090:9090"  # Проброс порта (локальный:контейнерный)
+    #environment:
+      #var: value2   # Переменные окружения
+    command:
+    - '--config.file=/etc/config/prometheus.yaml'  # Указываем путь к файлу конфигурации
+    volumes:
+      - ./prometheus/alert_rules.yaml:/etc/prometheus/alert_rules.yaml
+      - ./prometheus/prometheus.yaml:/etc/config/prometheus.yaml
+      - prometheusdata:/prometheus  # Хранение данных вне контейнера
+    restart: always  # Автоматический рестарт при сбое
+    depends_on:
+      - victoria-metrics  # Контейнер запускается после VM
+    extra_hosts: #доменнное имя для подключения к pve-exporter
+      - "myhost:host-gateway"
+
+  
+  grafana:
+    image: grafana/grafana 
+    container_name: grafana
+    #environment:
+      #var: value2   # Переменные окружения
+    volumes:
+      - grafanadata:/var/lib/grafana  # Хранение данных вне контейнера
+      - ./grafana/datasources:/etc/grafana/provisioning/datasources
+      - ./grafana/dashboards:/etc/grafana/provisioning/dashboards
+    restart: always  # Автоматический рестарт при сбое
+    depends_on:
+      - prometheus
+      - loki 
+    ports:
+      - "3000:3000"  # Проброс порта (локальный:контейнерный)
+
+  alertmanager:
+    restart: always  # Автоматический рестарт при сбое
+    image: prom/alertmanager
+    container_name: alertmanager
+    #environment:
+    #  - TZ=Asia/Yekaterinburg   #Время, которыое будет 
+    ports:
+      - "9093:9093"
+    command:
+      - '--config.file=/etc/alertmanager/alertmanager.yaml'
+    volumes:
+      - alertdata:/alertmanager
+      - ./alertmanager/alertmanager.yaml:/etc/alertmanager/alertmanager.yaml # Монтирование конфигурации Alertmanager
+    depends_on:
+      - prometheus  # Контейнер запускается после db
+
+  victoria-metrics:
+    image: victoriametrics/victoria-metrics
+    container_name: victoria-metrics
+    ports:
+      - "8428:8428"  # Проброс порта для доступа к VictoriaMetrics
+    command:
+    - '-retentionPeriod=28d'  # Установка срока хранения метрик
+    restart: always
+    volumes:
+      - victoria-metrics-data:/victoria-metrics-data  # Хранение данных в томах
+  
+
+  pve-exporter:
+    image: prompve/prometheus-pve-exporter
+    container_name: pve-exporter
+    ports:
+      - "9221:9221"  
+    restart: always
+    volumes:
+      - ./pve-exporter/pve.yml:/etc/prometheus/pve.yml  # Хранение данных в томах
+
+
+  node-exporter:
+    image: prom/node-exporter:latest
+    container_name: node-exporter
+    restart: always
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.rootfs=/rootfs'
+      - '--path.sysfs=/host/sys'
+      - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
+    expose:
+      - 9100
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:latest
+    container_name: cadvisor
+    ports:
+      - "1112:8080"
+    restart: always
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /sys:/sys:ro
+      - /var/lib/docker:/var/lib/docker:ro
+
+  loki:
+    image: grafana/loki
+    container_name: loki
+    ports:
+      - "3100:3100"  
+    restart: always
+    volumes:
+      - ./loki/loki-config.yaml:/etc/loki/loki-config.yaml
+      - ./loki/alert_rules.yaml:/etc/loki/rules/fake/alert_rules.yaml
+      - loki-data:/loki  # Добавляем том для хранения данных
+    command: -config.file=/etc/loki/loki-config.yaml
+
+volumes:
+  prometheusdata:
+  grafanadata:
+  victoria-metrics-data:  
+  alertdata:
+  loki-data:

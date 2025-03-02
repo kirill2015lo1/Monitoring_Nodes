@@ -1,0 +1,73 @@
+global:
+  resolve_timeout: 15s  # Время ожидания для подтверждения разрешения алерта.
+route:
+  group_by: ['server'] 
+  receiver: 'telegram'  # Уведомления по умолчанию будут отправляться
+  
+  routes:
+    - match:
+        severity: 'Critical'  # Алерты с критической важностью.
+      receiver: 'telegram'  # Получатель для критических алертов.
+      group_wait: 10s  # Время ожидания для сбора алертов до отправки первого уведомления для критических.
+      group_interval: 5s  # Интервал между группами уведомлений для критических.
+      repeat_interval: 5m  # Интервал повторных уведомлений для критических.
+
+    - match:
+        severity: 'Warning'  # Алерты с предупреждением.
+      receiver: 'telegram2'  # Получатель для предупреждений.
+      group_wait: 10s  # Время ожидания для сбора алертов до отправки первого уведомления для предупреждений.
+      group_interval: 5s  # Интервал между группами уведомлений для предупреждений.
+      repeat_interval: 1h  # Интервал повторных уведомлений для предупреждений.
+
+receivers:
+  - name: 'telegram'
+    telegram_configs:
+      - chat_id: -  # Замените на ваш Chat ID
+        bot_token: ''  # Замените на ваш Telegram Bot Token
+        send_resolved: true
+        message: |
+          {{ if eq .Status "firing" }}🚨 WARNING!
+          {{ range .GroupLabels.SortedPairs }}{{ if eq .Name "server" }}{{ .Value }} имеет проблемы:
+          {{ end }}{{ end }}
+          {{ range .Alerts }}
+          🔴 {{ .Labels.alertname }}
+          Описание: {{ .Annotations.summary }}
+          Доп. писание: {{ .Annotations.description }}
+          Начало: {{ (.StartsAt | tz "Etc/GMT-5") | date "15:04 02-01-2006 MST" }}
+          Серьезность: {{ .Labels.severity }}
+          {{ end }}
+
+          {{ else if eq .Status "resolved" }}✅ Resolved.
+          {{ range .GroupLabels.SortedPairs }}{{ if eq .Name "server" }}{{ .Value }} проблемы решены:
+          {{ end }}{{ end }}
+          {{ range .Alerts }}
+          🟢 {{ .Labels.alertname }}
+          Описание: {{ .Annotations.summary }}
+          Доп. писание: {{ .Annotations.description }}
+          Начало: {{ (.StartsAt | tz "Etc/GMT-5") | date "15:04 02-01-2006 MST" }}
+          Решено: {{ (.EndsAt | tz "Etc/GMT-5") | date "15:04 02-01-2006 MST" }}
+          Серьезность: {{ .Labels.severity }}
+          {{ end }}
+          {{ end }}
+  - name: 'telegram2'
+    telegram_configs:
+      - chat_id: - # Замените на ваш Chat ID
+        bot_token: ''  # Замените на ваш Telegram Bot Token
+        send_resolved: false  # Не отправлять уведомления о resolved.
+        message: |
+          {{ if eq .Status "firing" }}⚠️ Attention!
+          {{ range .GroupLabels.SortedPairs }}{{ if eq .Name "server" }}{{ .Value }} внимание:
+          {{ end }}{{ end }}
+          {{ range .Alerts }}
+          🟡 {{ .Labels.alertname }}
+          Описание: {{ .Annotations.summary }}
+          Доп. описание: {{ .Annotations.description }}
+          Начало: {{ (.StartsAt | tz "Etc/GMT-5") | date "15:04 02-01-2006 MST" }}
+          Серьезность: {{ .Labels.severity }}
+          {{ end }}
+          {{ end }}
+#https://api.telegram.org/botTHERE_TOKEN/getUpdates 
+
+ # tz "Etc/GMT-5" = часовой пояс +5, изменить на нужный 
+
+ 
