@@ -349,7 +349,7 @@ clients:
 Настройка хранилища для loki/loki-config.yaml взята из первого тейплейта из документации:  
 `https://grafana.com/docs/loki/latest/configure/examples/configuration-examples/`
 
-Ссылка на документацию по настройкам, которые можно указать или изменит в loki/loki-config.yaml  
+Ссылка на документацию по настройкам, которые можно указать или изменить в loki/loki-config.yaml  
 `https://grafana.com/docs/loki/latest/configure/`
 
 Примелы правил для loki/alert_rules.yaml:  
