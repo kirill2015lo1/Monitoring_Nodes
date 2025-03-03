@@ -37,3 +37,12 @@ groups:
         annotations:
           summary: "Пул {{ $labels.zpool }} имеет статус {{ $labels.state }} на ноде - {{ $labels.server }} "    # Описание алерта
           description: "-"
+
+      - alert: HIGH_CPU_USAGE2  # Название алерта
+        expr:  1 - (sum(rate(node_cpu_seconds_total{mode="idle", job="node_exporter" }[30s])) by (instance, server) / sum(rate(node_cpu_seconds_total{job="node_exporter"}[30s])) by (instance, server)) > 0.009  
+        for: 1s  # Если условие выполняется более 1s 
+        labels:
+          severity: Critical  # Степень важности алерта
+        annotations:
+          summary: "Нагрузка CPU больше 90 процентов на ноде {{ $labels.server }}"  # Описание алерта
+          description: "-"
