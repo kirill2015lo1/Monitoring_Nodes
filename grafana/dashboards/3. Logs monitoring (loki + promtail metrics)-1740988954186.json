@@ -18,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 6,
+  "id": 3,
   "links": [],
   "panels": [
     {
@@ -714,7 +714,9 @@
     "list": [
       {
         "current": {
-          "text": "All",
+          "text": [
+            "All"
+          ],
           "value": [
             "$__all"
           ]
@@ -739,15 +741,15 @@
       },
       {
         "current": {
-          "text": "| level=~\"error\" or detected_level=~\"error\"",
-          "value": "| level=~\"error\" or detected_level=~\"error\""
+          "text": "",
+          "value": ""
         },
         "description": "level!~\"error|warn\"\nтак не перечисляй, иначе работает некорректно\nТолько через and отдельно",
         "includeAll": false,
         "name": "level",
         "options": [
           {
-            "selected": true,
+            "selected": false,
             "text": "| level=~\"error\" or detected_level=~\"error\"",
             "value": "| level=~\"error\" or detected_level=~\"error\""
           },
@@ -762,7 +764,7 @@
             "value": "| level!~\"warn\" and detected_level!~\"warn\" and level!~\"error\" and detected_level!~\"error\""
           },
           {
-            "selected": false,
+            "selected": true,
             "text": "",
             "value": ""
           }
@@ -840,6 +842,6 @@
   "timezone": "browser",
   "title": "3. Logs monitoring (loki + promtail metrics)",
   "uid": "1231321",
-  "version": 3,
+  "version": 1,
   "weekStart": ""
 }

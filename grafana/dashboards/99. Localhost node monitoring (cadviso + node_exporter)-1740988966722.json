@@ -18,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 7,
+  "id": 4,
   "links": [],
   "panels": [
     {
@@ -28,6 +28,321 @@
         "w": 24,
         "x": 0,
         "y": 0
+      },
+      "id": 19,
+      "panels": [],
+      "title": "DOCKER",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 1,
+          "mappings": [],
+          "max": 1,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "percentunit"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 24,
+        "x": 0,
+        "y": 1
+      },
+      "id": 21,
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true,
+          "sortBy": "Last *",
+          "sortDesc": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.5.2",
+      "targets": [
+        {
+          "editorMode": "code",
+          "expr": "rate(container_cpu_usage_seconds_total{image!=\"\", job=\"local_cadvisor\"}[$interval])",
+          "legendFormat": "{{name}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "CPU",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "bytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 10
+      },
+      "id": 20,
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true,
+          "sortBy": "Last *",
+          "sortDesc": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.5.2",
+      "targets": [
+        {
+          "editorMode": "code",
+          "expr": "container_memory_usage_bytes{image!=\"\"}",
+          "legendFormat": "{{name}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "RAM",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "bytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 10
+      },
+      "id": 22,
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true,
+          "sortBy": "Last *",
+          "sortDesc": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.5.2",
+      "targets": [
+        {
+          "editorMode": "code",
+          "expr": "container_memory_cache{image!=\"\",name=~\".+\"}\r\n",
+          "legendFormat": "{{name}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Memory Cached",
+      "type": "timeseries"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 18
       },
       "id": 8,
       "panels": [],
@@ -99,10 +414,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 7,
-        "w": 16,
+        "h": 6,
+        "w": 24,
         "x": 0,
-        "y": 1
+        "y": 19
       },
       "id": 5,
       "options": {
@@ -183,7 +498,6 @@
               "mode": "off"
             }
           },
-          "decimals": 1,
           "mappings": [],
           "min": 0,
           "thresholds": {
@@ -199,17 +513,17 @@
               }
             ]
           },
-          "unit": "Ядер"
+          "unit": "bytes"
         },
         "overrides": []
       },
       "gridPos": {
         "h": 7,
         "w": 8,
-        "x": 16,
-        "y": 1
+        "x": 0,
+        "y": 25
       },
-      "id": 32,
+      "id": 4,
       "options": {
         "legend": {
           "calcs": [
@@ -235,13 +549,13 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "count(node_cpu_seconds_total{mode=\"system\",job='node_exporter'}) by (server)",
-          "legendFormat": "{{server}} ",
+          "expr": "node_memory_MemTotal_bytes{instance=~\"$node\"}",
+          "legendFormat": " {{server}} ram",
           "range": true,
           "refId": "A"
         }
       ],
-      "title": "Всего ядер ",
+      "title": "Сколько RAM всего",
       "type": "timeseries"
     },
     {
@@ -287,6 +601,7 @@
               "mode": "off"
             }
           },
+          "decimals": 1,
           "mappings": [],
           "min": 0,
           "thresholds": {
@@ -309,10 +624,10 @@
       "gridPos": {
         "h": 7,
         "w": 8,
-        "x": 0,
-        "y": 8
+        "x": 8,
+        "y": 25
       },
-      "id": 4,
+      "id": 17,
       "options": {
         "legend": {
           "calcs": [
@@ -338,13 +653,13 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "node_memory_MemTotal_bytes{instance=~\"$node\"}",
-          "legendFormat": " {{server}} ram",
+          "expr": "node_memory_MemTotal_bytes{instance=~\"$node\"} - node_memory_MemFree_bytes{instance=~\"$node\"} ",
+          "legendFormat": "{{server}} ",
           "range": true,
           "refId": "A"
         }
       ],
-      "title": "Сколько RAM всего",
+      "title": "сколько GB RAM используется ",
       "type": "timeseries"
     },
     {
@@ -417,8 +732,8 @@
       "gridPos": {
         "h": 7,
         "w": 8,
-        "x": 8,
-        "y": 8
+        "x": 16,
+        "y": 25
       },
       "id": 7,
       "options": {
@@ -456,116 +771,12 @@
       "type": "timeseries"
     },
     {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${datasource}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "line",
-            "fillOpacity": 10,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "decimals": 1,
-          "mappings": [],
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "bytes"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 7,
-        "w": 8,
-        "x": 16,
-        "y": 8
-      },
-      "id": 17,
-      "options": {
-        "legend": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "displayMode": "table",
-          "placement": "right",
-          "showLegend": true,
-          "sortBy": "Last *",
-          "sortDesc": true
-        },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "11.5.2",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "editorMode": "code",
-          "expr": "node_memory_MemTotal_bytes{instance=~\"$node\"} - node_memory_MemFree_bytes{instance=~\"$node\"} ",
-          "legendFormat": "{{server}} ",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "сколько GB RAM используется ",
-      "type": "timeseries"
-    },
-    {
       "collapsed": false,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 15
+        "y": 32
       },
       "id": 13,
       "panels": [],
@@ -640,7 +851,7 @@
         "h": 6,
         "w": 12,
         "x": 0,
-        "y": 16
+        "y": 33
       },
       "id": 1,
       "options": {
@@ -747,7 +958,7 @@
         "h": 6,
         "w": 12,
         "x": 12,
-        "y": 16
+        "y": 33
       },
       "id": 16,
       "options": {
@@ -852,7 +1063,7 @@
         "h": 6,
         "w": 12,
         "x": 0,
-        "y": 22
+        "y": 39
       },
       "id": 12,
       "options": {
@@ -958,7 +1169,7 @@
         "h": 6,
         "w": 12,
         "x": 12,
-        "y": 22
+        "y": 39
       },
       "id": 11,
       "options": {
@@ -1064,7 +1275,7 @@
         "h": 6,
         "w": 12,
         "x": 0,
-        "y": 28
+        "y": 45
       },
       "id": 15,
       "options": {
@@ -1170,7 +1381,7 @@
         "h": 6,
         "w": 12,
         "x": 12,
-        "y": 28
+        "y": 45
       },
       "id": 10,
       "options": {
@@ -1254,6 +1465,8 @@
           },
           "decimals": 2,
           "mappings": [],
+          "max": 1,
+          "min": 0,
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -1267,17 +1480,17 @@
               }
             ]
           },
-          "unit": "bytes"
+          "unit": "percentunit"
         },
         "overrides": []
       },
       "gridPos": {
-        "h": 12,
-        "w": 12,
+        "h": 7,
+        "w": 8,
         "x": 0,
-        "y": 34
+        "y": 51
       },
-      "id": 3,
+      "id": 23,
       "options": {
         "legend": {
           "calcs": [
@@ -1287,7 +1500,7 @@
           "placement": "right",
           "showLegend": true,
           "sortBy": "Last *",
-          "sortDesc": false
+          "sortDesc": true
         },
         "tooltip": {
           "hideZeros": false,
@@ -1303,13 +1516,13 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "node_filesystem_free_bytes{instance=~\"$node\", fstype=~\"zfs|ext4\"}",
+          "expr": "(node_filesystem_size_bytes{instance=~\"$node\",fstype=~\"zfs|ext4\"} - node_filesystem_free_bytes{instance=~\"$node\",fstype=~\"zfs|ext4\"}) / node_filesystem_size_bytes{instance=~\"$node\",fstype=~\"zfs|ext4\"}",
           "legendFormat": "{{server}} - {{mountpoint}}",
           "range": true,
           "refId": "A"
         }
       ],
-      "title": "FS free space / Свободное место",
+      "title": "FS % used space / Занятое место в процентах",
       "type": "timeseries"
     },
     {
@@ -1357,6 +1570,7 @@
           },
           "decimals": 2,
           "mappings": [],
+          "min": 0,
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -1375,10 +1589,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 12,
-        "w": 12,
-        "x": 12,
-        "y": 34
+        "h": 7,
+        "w": 8,
+        "x": 8,
+        "y": 51
       },
       "id": 18,
       "options": {
@@ -1406,7 +1620,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "node_filesystem_size_bytes{instance=~\"$node\", fstype=~\"zfs|ext4\"} - node_filesystem_free_bytes{instance=~\"$node\", fstype=\"zfs\"} ",
+          "expr": "node_filesystem_size_bytes{instance=~\"$node\",fstype=~\"zfs|ext4\"} - node_filesystem_free_bytes{instance=~\"$node\",fstype=~\"zfs|ext4\"} ",
           "legendFormat": "{{server}} - {{mountpoint}}",
           "range": true,
           "refId": "A"
@@ -1416,19 +1630,6 @@
       "type": "timeseries"
     },
     {
-      "collapsed": false,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 46
-      },
-      "id": 19,
-      "panels": [],
-      "title": "Network metrics",
-      "type": "row"
-    },
-    {
       "datasource": {
         "type": "prometheus",
         "uid": "${datasource}"
@@ -1447,7 +1648,7 @@
             "barAlignment": 0,
             "barWidthFactor": 0.6,
             "drawStyle": "line",
-            "fillOpacity": 10,
+            "fillOpacity": 3,
             "gradientMode": "none",
             "hideFrom": {
               "legend": false,
@@ -1471,459 +1672,15 @@
               "mode": "off"
             }
           },
-          "decimals": 1,
+          "decimals": 2,
           "mappings": [],
           "min": 0,
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "binBps"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 7,
-        "w": 12,
-        "x": 0,
-        "y": 47
-      },
-      "id": 20,
-      "options": {
-        "legend": {
-          "calcs": [
-            "lastNotNull",
-            "max"
-          ],
-          "displayMode": "table",
-          "placement": "right",
-          "showLegend": true,
-          "sortBy": "Last *",
-          "sortDesc": true
-        },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "11.5.2",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "editorMode": "code",
-          "expr": "rate(node_network_receive_bytes_total {instance=~'$node', device=~'$network_interface'}[$interval])",
-          "legendFormat": "{{server}} - {{device}}",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Данных приходит/СЕК",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${datasource}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "line",
-            "fillOpacity": 10,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "decimals": 1,
-          "mappings": [],
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green"
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "binBps"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 7,
-        "w": 12,
-        "x": 12,
-        "y": 47
-      },
-      "id": 21,
-      "options": {
-        "legend": {
-          "calcs": [
-            "lastNotNull",
-            "max"
-          ],
-          "displayMode": "table",
-          "placement": "right",
-          "showLegend": true,
-          "sortBy": "Last *",
-          "sortDesc": true
-        },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "11.5.2",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "editorMode": "code",
-          "expr": "rate(node_network_transmit_bytes_total{instance=~'$node', device=~'$network_interface'}[$interval])",
-          "legendFormat": "{{server}} - {{device}}",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Данных уходит/СЕК",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${datasource}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "line",
-            "fillOpacity": 10,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "decimals": 1,
-          "mappings": [],
-          "max": 1,
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green"
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "percentunit"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 7,
-        "w": 12,
-        "x": 0,
-        "y": 54
-      },
-      "id": 22,
-      "options": {
-        "legend": {
-          "calcs": [
-            "lastNotNull",
-            "max"
-          ],
-          "displayMode": "table",
-          "placement": "right",
-          "showLegend": true,
-          "sortBy": "Last *",
-          "sortDesc": true
-        },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "11.5.2",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "editorMode": "code",
-          "expr": "(\r\n  rate(node_network_receive_drop_total{instance=~'$node', device=~'$network_interface'}[$interval])\r\n  /\r\n  rate(node_network_receive_packets_total{instance=~'$node', device=~'$network_interface'}[$interval])\r\n)",
-          "hide": false,
-          "legendFormat": " {{server}} - {{device}} При получении",
-          "range": true,
-          "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "editorMode": "code",
-          "expr": "(\r\n  rate(node_network_transmit_drop_total{instance=~'$node', device=~'$network_interface'}[$interval])\r\n  /\r\n  rate(node_network_transmit_packets_total{instance=~'$node', device=~'$network_interface'}[$interval])\r\n)",
-          "hide": false,
-          "instant": false,
-          "legendFormat": " {{server}} - {{device}} При передаче",
-          "range": true,
-          "refId": "B"
-        }
-      ],
-      "title": "Потери пакетов % из 100 ",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${datasource}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "line",
-            "fillOpacity": 10,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "decimals": 1,
-          "mappings": [],
-          "max": 1,
-          "min": 0,
-          "noValue": "0",
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green"
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "percentunit"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 7,
-        "w": 12,
-        "x": 12,
-        "y": 54
-      },
-      "id": 23,
-      "options": {
-        "legend": {
-          "calcs": [
-            "lastNotNull",
-            "max"
-          ],
-          "displayMode": "table",
-          "placement": "right",
-          "showLegend": true
-        },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "11.5.2",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "editorMode": "code",
-          "expr": "\r\n(\r\n  rate(node_network_receive_bytes_total{instance=~'$node', device=~'$network_interface'}[$interval]) \r\n  + \r\n  rate(node_network_transmit_bytes_total{instance=~'$node', device=~'$network_interface'}[$interval])\r\n)\r\n/\r\n(node_network_speed_bytes{instance=~'$node', device=~'$network_interface'}> 0)",
-          "hide": false,
-          "legendFormat": "При приеме {{server}} {{device}} ",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Процент нагрузки на интерфейс",
-      "type": "timeseries"
-    },
-    {
-      "collapsed": false,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 61
-      },
-      "id": 24,
-      "panels": [],
-      "title": "ZFS",
-      "type": "row"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${datasource}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "line",
-            "fillOpacity": 10,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "decimals": 1,
-          "mappings": [],
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -1938,10 +1695,10 @@
       "gridPos": {
         "h": 7,
         "w": 8,
-        "x": 0,
-        "y": 62
+        "x": 16,
+        "y": 51
       },
-      "id": 30,
+      "id": 3,
       "options": {
         "legend": {
           "calcs": [
@@ -1951,7 +1708,7 @@
           "placement": "right",
           "showLegend": true,
           "sortBy": "Last *",
-          "sortDesc": true
+          "sortDesc": false
         },
         "tooltip": {
           "hideZeros": false,
@@ -1967,227 +1724,13 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "node_zfs_arc_c_max{instance=~\"$node\"} ",
-          "hide": false,
-          "legendFormat": "{{server}}",
+          "expr": "node_filesystem_free_bytes{instance=~\"$node\",fstype=~\"zfs|ext4\"}",
+          "legendFormat": "{{server}} - {{mountpoint}}",
           "range": true,
           "refId": "A"
         }
       ],
-      "title": "Max value ZFS ARC / Зачение zfs_arc_max",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${datasource}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "line",
-            "fillOpacity": 10,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "decimals": 1,
-          "mappings": [],
-          "max": 1,
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green"
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "percentunit"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 7,
-        "w": 16,
-        "x": 8,
-        "y": 62
-      },
-      "id": 26,
-      "options": {
-        "legend": {
-          "calcs": [
-            "lastNotNull",
-            "max"
-          ],
-          "displayMode": "table",
-          "placement": "right",
-          "showLegend": true,
-          "sortBy": "Last *",
-          "sortDesc": true
-        },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "11.5.2",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "editorMode": "code",
-          "expr": "node_zfs_arc_c{instance=~\"$node\"} / node_zfs_arc_c_max{instance=~\"$node\"}",
-          "hide": false,
-          "legendFormat": "{{server}}",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "ZFS ARC % usage / Процент использование ARC ",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${datasource}"
-      },
-      "description": "Он вычисляет отношение промахов ARC к общему количеству обращений к ARC (промахи + попадания). Это метрика, которая показывает, насколько эффективно работает кэш ZFS ARC.",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "line",
-            "fillOpacity": 10,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "decimals": 1,
-          "mappings": [],
-          "max": 1,
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green"
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "percentunit"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 7,
-        "w": 24,
-        "x": 0,
-        "y": 69
-      },
-      "id": 31,
-      "options": {
-        "legend": {
-          "calcs": [
-            "lastNotNull",
-            "max"
-          ],
-          "displayMode": "table",
-          "placement": "right",
-          "showLegend": true,
-          "sortBy": "Last *",
-          "sortDesc": true
-        },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "11.5.2",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "editorMode": "code",
-          "expr": "rate(node_zfs_arc_misses {instance=~\"$node\"}[$interval]) / (rate(node_zfs_arc_hits{instance=~\"$node\"}[$interval])  + rate(node_zfs_arc_misses{instance=~\"$node\"}[$interval]))",
-          "hide": false,
-          "legendFormat": "{{server}}",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "ARC miss % / процент промахов, при обращении к ARC",
+      "title": "FS free space / Свободное место",
       "type": "timeseries"
     }
   ],
@@ -2197,32 +1740,6 @@
   "tags": [],
   "templating": {
     "list": [
-      {
-        "current": {
-          "text": "All",
-          "value": [
-            "$__all"
-          ]
-        },
-        "datasource": {
-          "type": "prometheus",
-          "uid": "${datasource}"
-        },
-        "definition": "label_values(node_dmi_info{job=\"node_exporter\"},instance)",
-        "includeAll": true,
-        "label": "node",
-        "multi": true,
-        "name": "node",
-        "options": [],
-        "query": {
-          "qryType": 1,
-          "query": "label_values(node_dmi_info{job=\"node_exporter\"},instance)",
-          "refId": "PrometheusVariableQueryEditor-VariableQuery"
-        },
-        "refresh": 1,
-        "regex": "",
-        "type": "query"
-      },
       {
         "auto": false,
         "auto_count": 30,
@@ -2255,8 +1772,49 @@
       },
       {
         "current": {
+          "text": "Prometheus",
+          "value": "PBFA97CFB590B2093"
+        },
+        "hide": 2,
+        "label": "Datasource",
+        "name": "datasource",
+        "options": [],
+        "query": "prometheus",
+        "refresh": 1,
+        "regex": "",
+        "type": "datasource"
+      },
+      {
+        "allowCustomValue": true,
+        "current": {
+          "text": "node-exporter:9100",
+          "value": "node-exporter:9100"
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${datasource}"
+        },
+        "definition": "label_values(node_dmi_info{job=\"local_node_exporter\"},instance)",
+        "hide": 2,
+        "includeAll": false,
+        "label": "node",
+        "name": "node",
+        "options": [],
+        "query": {
+          "qryType": 1,
+          "query": "label_values(node_dmi_info{job=\"local_node_exporter\"},instance)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
+        "refresh": 1,
+        "regex": "",
+        "type": "query"
+      },
+      {
+        "current": {
           "text": "All",
-          "value": "$__all"
+          "value": [
+            "$__all"
+          ]
         },
         "datasource": {
           "type": "prometheus",
@@ -2264,6 +1822,7 @@
         },
         "definition": "label_values(node_disk_write_time_seconds_total,device)",
         "description": "",
+        "hide": 2,
         "includeAll": true,
         "multi": true,
         "name": "disk",
@@ -2277,48 +1836,11 @@
         "regex": "^(?!zd).*$",
         "sort": 1,
         "type": "query"
-      },
-      {
-        "current": {
-          "text": "All",
-          "value": "$__all"
-        },
-        "datasource": {
-          "type": "prometheus",
-          "uid": "${datasource}"
-        },
-        "definition": "label_values(node_network_iface_link,device)",
-        "includeAll": true,
-        "multi": true,
-        "name": "network_interface",
-        "options": [],
-        "query": {
-          "qryType": 1,
-          "query": "label_values(node_network_iface_link,device)",
-          "refId": "PrometheusVariableQueryEditor-VariableQuery"
-        },
-        "refresh": 1,
-        "regex": "^en.*",
-        "type": "query"
-      },
-      {
-        "current": {
-          "text": "Prometheus",
-          "value": "PBFA97CFB590B2093"
-        },
-        "hide": 2,
-        "label": "Datasource",
-        "name": "datasource",
-        "options": [],
-        "query": "prometheus",
-        "refresh": 1,
-        "regex": "",
-        "type": "datasource"
       }
     ]
   },
   "time": {
-    "from": "now-15m",
+    "from": "now-30m",
     "to": "now"
   },
   "timepicker": {
@@ -2330,8 +1852,8 @@
     ]
   },
   "timezone": "browser",
-  "title": "1. Nodes monitoring (node-exporter)",
-  "uid": "dec1ad0n44ni8d",
-  "version": 3,
+  "title": "99. Localhost node monitoring (cadviso + node_exporter)",
+  "uid": "123",
+  "version": 2,
   "weekStart": ""
 }
