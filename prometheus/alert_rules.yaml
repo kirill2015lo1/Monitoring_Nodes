@@ -3,7 +3,7 @@ groups:
     rules:
 
       - alert: HIGH_CPU_USAGE  # Название алерта
-        expr:  1 - (sum(rate(node_cpu_seconds_total{mode="idle", job="node_exporter" }[30s])) by (instance, server) / sum(rate(node_cpu_seconds_total{job="node_exporter"}[30s])) by (instance, server)) > 0.01  
+        expr:  1 - (sum(rate(node_cpu_seconds_total{mode="idle", job="node_exporter" }[30s])) by (instance, server) / sum(rate(node_cpu_seconds_total{job="node_exporter"}[30s])) by (instance, server)) > 0.9  
         for: 1s  # Если условие выполняется более 1s 
         labels:
           severity: Critical  # Степень важности алерта
