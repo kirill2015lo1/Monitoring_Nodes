@@ -18,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 1,
+  "id": 15,
   "links": [],
   "panels": [
     {
@@ -168,6 +168,9 @@
             },
             "insertNulls": false,
             "lineInterpolation": "linear",
+            "lineStyle": {
+              "fill": "solid"
+            },
             "lineWidth": 1,
             "pointSize": 5,
             "scaleDistribution": {
@@ -183,22 +186,24 @@
               "mode": "off"
             }
           },
+          "decimals": 1,
           "mappings": [],
+          "max": 1,
           "min": 0,
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "transparent",
                 "value": null
               },
               {
                 "color": "red",
-                "value": 80
+                "value": 0.9
               }
             ]
           },
-          "unit": "bytes"
+          "unit": "percentunit"
         },
         "overrides": []
       },
@@ -208,7 +213,7 @@
         "x": 0,
         "y": 7
       },
-      "id": 4,
+      "id": 7,
       "options": {
         "legend": {
           "calcs": [
@@ -234,13 +239,13 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "node_memory_MemTotal_bytes{instance=~\"$node\"}",
-          "legendFormat": " {{server}} ram",
+          "expr": "((node_memory_MemTotal_bytes{instance=~\"$node\"} - node_memory_MemFree_bytes{instance=~\"$node\"}) / node_memory_MemTotal_bytes{instance=~\"$node\"}) ",
+          "legendFormat": "{{server}} ",
           "range": true,
           "refId": "A"
         }
       ],
-      "title": "Сколько RAM всего",
+      "title": "сколько процентов RAM используется ",
       "type": "timeseries"
     },
     {
@@ -375,9 +380,6 @@
             },
             "insertNulls": false,
             "lineInterpolation": "linear",
-            "lineStyle": {
-              "fill": "solid"
-            },
             "lineWidth": 1,
             "pointSize": 5,
             "scaleDistribution": {
@@ -393,24 +395,22 @@
               "mode": "off"
             }
           },
-          "decimals": 1,
           "mappings": [],
-          "max": 1,
           "min": 0,
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "transparent",
+                "color": "green",
                 "value": null
               },
               {
                 "color": "red",
-                "value": 0.9
+                "value": 80
               }
             ]
           },
-          "unit": "percentunit"
+          "unit": "bytes"
         },
         "overrides": []
       },
@@ -420,7 +420,7 @@
         "x": 16,
         "y": 7
       },
-      "id": 7,
+      "id": 4,
       "options": {
         "legend": {
           "calcs": [
@@ -446,13 +446,13 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "((node_memory_MemTotal_bytes{instance=~\"$node\"} - node_memory_MemFree_bytes{instance=~\"$node\"}) / node_memory_MemTotal_bytes{instance=~\"$node\"}) ",
-          "legendFormat": "{{server}} ",
+          "expr": "node_memory_MemTotal_bytes{instance=~\"$node\"}",
+          "legendFormat": " {{server}} ram",
           "range": true,
           "refId": "A"
         }
       ],
-      "title": "сколько процентов RAM используется ",
+      "title": "Сколько RAM всего",
       "type": "timeseries"
     },
     {
@@ -1586,8 +1586,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1693,8 +1692,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1800,8 +1798,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1920,8 +1917,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2026,8 +2022,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2131,8 +2126,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2238,8 +2232,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2436,6 +2429,6 @@
   "timezone": "browser",
   "title": "1. Nodes monitoring (node-exporter)",
   "uid": "dec1ad0n44ni8d",
-  "version": 4,
+  "version": 2,
   "weekStart": ""
 }
