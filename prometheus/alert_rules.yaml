@@ -43,8 +43,9 @@ groups:
         for: 1s  # Если условие выполняется более 1s 
         labels:
           severity: Critical  # Степень важности алерта
+          server: proxmox
         annotations:
-          summary: "Нагрузка CPU больше 90 процентов у ВМ или LXC с id {{ $labels.id }}"  # Описание алерта
+          summary: "Нагрузка CPU больше 90 процентов у ВМ или LXC: {{ $labels.id }}"  # Описание алерта
           description: "-"
 
       - alert: HIGH_RAM_USAGE_PROXMOX  # Название алерта
@@ -52,8 +53,9 @@ groups:
         for: 1s  # Если условие выполняется более 1s 
         labels:
           severity: Critical  # Степень важности алерта
+          server: proxmox
         annotations:
-          summary: "Использование RAM больше 90 процентов у ВМ или LXC с id {{ $labels.id }}"  # Описание алерта
+          summary: "Использование RAM больше 90 процентов у ВМ или LXC: {{ $labels.id }}"  # Описание алерта
           description: "-"
 
       - alert: HIGH_DISK_USAGE_PROXMOX  # Название алерта
@@ -61,26 +63,28 @@ groups:
         for: 1s  # Если условие выполняется более 1s 
         labels:
           severity: Critical  # Степень важности алерта
+          server: proxmox
         annotations:
-          summary: "Занятое место больше 90 процентов у пула {{ $labels.id }}"  # Описание алерта
-          description: "-"
+          summary: "Занятое место больше 90 процентов у пула: {{ $labels.id }}"  # Описание алерта
+          description: "Формат: storage/*SERVER_NAME*/*POOL_NAME*"
 
       - alert: HIGH_DISK_LXC_USAGE_PROXMOX  # Название алерта
         expr:  count((pve_disk_usage_bytes{ id=~"lxc/.+",job='proxmox'} / pve_disk_size_bytes{ id=~"lxc/.+",job='proxmox'}) * on(id, instance) group_left(name, type) pve_guest_info > 0.9) by (id) > 0
         for: 1s  # Если условие выполняется более 1s 
         labels:
           severity: Critical  # Степень важности алерта
+          server: proxmox
         annotations:
-          summary: "Занятое место больше 90 процентов у пула {{ $labels.id }}"  # Описание алерта
+          summary: "Занятое место больше 90 процентов у LXC: {{ $labels.id }}"  # Описание алерта
           description: "-"
 
       - alert: LONG_REPLICA_DURATION_PROXMOX  # Название алерта
-        expr: pve_replication_duration_seconds{job='proxmox'}   > 1800
+        expr: pve_replication_duration_seconds{job='proxmox'}   > 900
         for: 1s  # Если условие выполняется более 1s 
         labels:
           severity: Critical  # Степень важности алерта
         annotations:
-          summary: "Длительность репликации больше 30 минут у ВМ или LXC с id {{ $labels.id }} на ноде {{ $labels.server }}"  # Описание алерта
+          summary: "Длительность репликации больше 15 минут у ВМ или LXC: {{ $labels.id }} на ноде {{ $labels.server }}"  # Описание алерта
           description: "-"
 
       - alert: NODE_POWEROFF  
@@ -109,3 +113,4 @@ groups:
         annotations:
           summary: "Пул {{ $labels.zpool }} имеет статус {{ $labels.state }} на ноде - {{ $labels.server }} "    # Описание алерта
           description: "-"
+
