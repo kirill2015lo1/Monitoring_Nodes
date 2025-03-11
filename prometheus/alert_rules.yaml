@@ -11,6 +11,78 @@ groups:
           summary: "Нагрузка CPU больше 90 процентов на ноде {{ $labels.server }}"  # Описание алерта
           description: "-"
 
+      - alert: HIGH_RAM_USAGE  # Название алерта
+        expr:   1-(sum(rate(node_cpu_seconds_total{mode="idle", job="node_exporter" }[30s])) by (server) / sum(rate(node_cpu_seconds_total{job="node_exporter"}[30s])) by (server)) > 0.9
+        for: 1s  # Если условие выполняется более 1s 
+        labels:
+          severity: Critical  # Степень важности алерта
+        annotations:
+          summary: "Использование RAM больше 90 процентов на ноде {{ $labels.server }}"  # Описание алерта
+          description: "-"
+
+      - alert: HIGH_IO_DELAY  # Название алерта
+        expr:   sum(increase(node_cpu_seconds_total{mode="iowait", job="node_exporter"}[30s])) by(server)/ sum(increase(node_cpu_seconds_total{job="node_exporter"}[30s])) by(server) > 0.2
+        for: 1s  # Если условие выполняется более 1s 
+        labels:
+          severity: Critical  # Степень важности алерта
+        annotations:
+          summary: "IoDelay больше 20 процентов на ноде {{ $labels.server }}"  # Описание алерта
+          description: "-"
+
+      - alert: HIGH_ARC_USAGE  # Название алерта
+        expr:  node_zfs_arc_c{job="node_exporter"} / node_zfs_arc_c_max{job="node_exporter"} > 0.9
+        for: 1s  # Если условие выполняется более 1s 
+        labels:
+          severity: Critical  # Степень важности алерта
+        annotations:
+          summary: "Использование ZFS ARC больше 90 процентов на ноде {{ $labels.server }}"  # Описание алерта
+          description: "Возможны потери в производительности ZFS"
+
+      - alert: HIGH_CPU_USAGE_PROXMOX  # Название алерта
+        expr:  count(((pve_cpu_usage_ratio{job='proxmox'}  * on(id, instance) group_left(name, type) pve_guest_info) > 0.9) and on(id, instance) pve_up == 1) by (id) > 0
+        for: 1s  # Если условие выполняется более 1s 
+        labels:
+          severity: Critical  # Степень важности алерта
+        annotations:
+          summary: "Нагрузка CPU больше 90 процентов у ВМ или LXC с id {{ $labels.id }}"  # Описание алерта
+          description: "-"
+
+      - alert: HIGH_RAM_USAGE_PROXMOX  # Название алерта
+        expr:  count((pve_memory_usage_bytes{job='proxmox'}  / pve_memory_size_bytes{job='proxmox'}  * on(id, instance) group_left(name, type) pve_guest_info) > 0.9 and on(id, instance) pve_up == 1) by (id) > 0
+        for: 1s  # Если условие выполняется более 1s 
+        labels:
+          severity: Critical  # Степень важности алерта
+        annotations:
+          summary: "Использование RAM больше 90 процентов у ВМ или LXC с id {{ $labels.id }}"  # Описание алерта
+          description: "-"
+
+      - alert: HIGH_DISK_USAGE_PROXMOX  # Название алерта
+        expr:  count((pve_disk_usage_bytes{ id=~"storage/.+",job='proxmox'} / pve_disk_size_bytes { id=~"storage/.+",job='proxmox'}) > 0.9) by (id) > 0
+        for: 1s  # Если условие выполняется более 1s 
+        labels:
+          severity: Critical  # Степень важности алерта
+        annotations:
+          summary: "Занятое место больше 90 процентов у пула {{ $labels.id }}"  # Описание алерта
+          description: "-"
+
+      - alert: HIGH_DISK_LXC_USAGE_PROXMOX  # Название алерта
+        expr:  count((pve_disk_usage_bytes{ id=~"lxc/.+",job='proxmox'} / pve_disk_size_bytes{ id=~"lxc/.+",job='proxmox'}) * on(id, instance) group_left(name, type) pve_guest_info > 0.9) by (id) > 0
+        for: 1s  # Если условие выполняется более 1s 
+        labels:
+          severity: Critical  # Степень важности алерта
+        annotations:
+          summary: "Занятое место больше 90 процентов у пула {{ $labels.id }}"  # Описание алерта
+          description: "-"
+
+      - alert: LONG_REPLICA_DURATION_PROXMOX  # Название алерта
+        expr: pve_replication_duration_seconds{job='proxmox'}   > 1800
+        for: 1s  # Если условие выполняется более 1s 
+        labels:
+          severity: Critical  # Степень важности алерта
+        annotations:
+          summary: "Длительность репликации больше 30 минут у ВМ или LXC с id {{ $labels.id }} на ноде {{ $labels.server }}"  # Описание алерта
+          description: "-"
+
       - alert: NODE_POWEROFF  
         expr:  up{job='node_exporter'} == 0  
         for: 1s  
@@ -26,7 +98,7 @@ groups:
         labels:
           severity: Critical  
         annotations:
-          summary: "ВМ или Контейнер с id {{ $labels.id }} имеет проблемы с репликацией на ноде {{ $labels.server }} "    # Описание алерта
+          summary: "ВМ или LXC с id {{ $labels.id }} имеет проблемы с репликацией на ноде {{ $labels.server }} "    # Описание алерта
           description: "-"
 
       - alert: ZFS_POOL_ERROR  # Название алерта
