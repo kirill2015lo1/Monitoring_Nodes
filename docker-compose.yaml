@@ -80,10 +80,12 @@ services:
     image: prom/node-exporter:latest
     container_name: node-exporter
     restart: always
+    privileged: true
     volumes:
       - /proc:/host/proc:ro
       - /sys:/host/sys:ro
       - /:/rootfs:ro
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro  # <== Передаем cgroup для метрик CPU/RAM
     command:
       - '--path.procfs=/host/proc'
       - '--path.rootfs=/rootfs'

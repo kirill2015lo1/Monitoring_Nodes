@@ -1,5 +1,5 @@
 global:
-  scrape_interval: 15s  # Интервал сбора метрик
+  scrape_interval: 30s  # Интервал сбора метрик
   scrape_timeout: 15s # Время на сбор метрик (меньше или равно scrape_interval)
   evaluation_interval: 30s   # Интервал проверки правил, нужно ли отправлять уведомления
 
