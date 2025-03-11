@@ -18,7 +18,8 @@ services:
     extra_hosts: #доменнное имя для подключения к pve-exporter
       - "myhost:host-gateway"
 
-  
+
+
   grafana:
     image: grafana/grafana 
     container_name: grafana
@@ -34,6 +35,7 @@ services:
       - loki 
     ports:
       - "3000:3000"  # Проброс порта (локальный:контейнерный)
+      
 
   alertmanager:
     restart: always  # Автоматический рестарт при сбое
@@ -46,6 +48,7 @@ services:
     command:
       - '--config.file=/etc/alertmanager/alertmanager.yaml'
     volumes:
+      - ./alertmanager/telegram_msg.tmpl:/etc/alertmanager/templates/telegram_msg.tmpl
       - alertdata:/alertmanager
       - ./alertmanager/alertmanager.yaml:/etc/alertmanager/alertmanager.yaml # Монтирование конфигурации Alertmanager
     depends_on:

@@ -1,0 +1,39 @@
+{{ define "telegram.message" }}
+{{ if eq .Status "firing" }}🚨 WARNING!
+
+{{ range .GroupLabels.SortedPairs }}{{ if eq .Name "server" }}<b>{{ .Value }}</b> имеет проблемы:{{ end }}{{ end }}
+{{ range .Alerts }}
+🔴 {{ .Labels.alertname }}
+<b>Описание:</b> {{ .Annotations.summary }}
+<b>Доп. описание:</b> {{ .Annotations.description }}
+<b>Начало:</b> {{ (.StartsAt | tz "Etc/GMT-5") | date "15:04 02-01-2006 MST" }}
+<b>Серьезность:</b> {{ .Labels.severity }}
+{{ end }}
+
+{{ else if eq .Status "resolved" }}✅ Resolved.
+
+{{ range .GroupLabels.SortedPairs }}{{ if eq .Name "server" }}<b>{{ .Value }}</b> проблемы решены:{{ end }}{{ end }}
+{{ range .Alerts }}
+🟢 {{ .Labels.alertname }}
+<b>Описание:</b> {{ .Annotations.summary }}
+<b>Доп. описание:</b> {{ .Annotations.description }}
+<b>Начало:</b> {{ (.StartsAt | tz "Etc/GMT-5") | date "15:04 02-01-2006 MST" }}
+<b>Решено:</b> {{ (.EndsAt | tz "Etc/GMT-5") | date "15:04 02-01-2006 MST" }}
+<b>Серьезность:</b> {{ .Labels.severity }}
+{{ end }}
+{{ end }}
+{{ end }}
+
+{{ define "telegram2.message" }}
+{{ if eq .Status "firing" }}⚠️ Attention!
+
+{{ range .GroupLabels.SortedPairs }}{{ if eq .Name "server" }}<b>{{ .Value }}</b> внимание:{{ end }}{{ end }}
+{{ range .Alerts }}
+🟡 {{ .Labels.alertname }}
+<b>Описание:</b> {{ .Annotations.summary }}
+<b>Доп. описание:</b> {{ .Annotations.description }}
+<b>Начало:</b> {{ (.StartsAt | tz "Etc/GMT-5") | date "15:04 02-01-2006 MST" }}
+<b>Серьезность:</b> {{ .Labels.severity }}
+{{ end }}
+{{ end }}
+{{ end }}

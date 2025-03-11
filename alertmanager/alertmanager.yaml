@@ -1,5 +1,9 @@
 global:
   resolve_timeout: 15s  # Время ожидания для подтверждения разрешения алерта.
+
+templates:
+  - '/etc/alertmanager/templates/telegram_msg.tmpl'  # Укажите путь к файлу с шаблоном
+  
 route:
   group_by: ['server'] 
   receiver: 'telegram'  # Уведомления по умолчанию будут отправляться
@@ -25,48 +29,13 @@ receivers:
       - chat_id: -  # Замените на ваш Chat ID
         bot_token: ''  # Замените на ваш Telegram Bot Token
         send_resolved: true
-        message: |
-          {{ if eq .Status "firing" }}🚨 WARNING!
-
-          {{ range .GroupLabels.SortedPairs }}{{ if eq .Name "server" }}<b>{{ .Value }}</b> имеет проблемы:{{ end }}{{ end }}
-          {{ range .Alerts }}
-          🔴 {{ .Labels.alertname }}
-          <b>Описание:</b> {{ .Annotations.summary }}
-          <b>Доп. писание:</b> {{ .Annotations.description }}
-          <b>Начало:</b> {{ (.StartsAt | tz "Etc/GMT-5") | date "15:04 02-01-2006 MST" }}
-          <b>Серьезность:</b> {{ .Labels.severity }}
-          {{ end }}
-
-          {{ else if eq .Status "resolved" }}✅ Resolved.
-
-          {{ range .GroupLabels.SortedPairs }}{{ if eq .Name "server" }}<b>{{ .Value }}</b> проблемы решены:
-          {{ end }}{{ end }}
-          {{ range .Alerts }}
-          🟢 {{ .Labels.alertname }}
-          <b>Описание:</b> {{ .Annotations.summary }}
-          <b>Доп. писание:</b> {{ .Annotations.description }}
-          <b>Начало:</b> {{ (.StartsAt | tz "Etc/GMT-5") | date "15:04 02-01-2006 MST" }}
-          <b>Решено:</b> {{ (.EndsAt | tz "Etc/GMT-5") | date "15:04 02-01-2006 MST" }}
-          <b>Серьезность:</b> {{ .Labels.severity }}
-          {{ end }}
-          {{ end }}
+        message: '{{ template "telegram.message" . }}'
   - name: 'telegram2'
     telegram_configs:
       - chat_id: - # Замените на ваш Chat ID
         bot_token: ''  # Замените на ваш Telegram Bot Token
         send_resolved: false  # Не отправлять уведомления о resolved.
-        message: |
-          {{ if eq .Status "firing" }}⚠️ Attention!
-          
-          {{ range .GroupLabels.SortedPairs }}{{ if eq .Name "server" }}<b>{{ .Value }}</b> внимание:{{ end }}{{ end }}
-          {{ range .Alerts }}
-          🟡 {{ .Labels.alertname }}
-          <b>Описание:</b> {{ .Annotations.summary }}
-          <b>Доп. описание:</b> {{ .Annotations.description }}
-          <b>Начало:</b> {{ (.StartsAt | tz "Etc/GMT-5") | date "15:04 02-01-2006 MST" }}
-          <b>Серьезность:</b> {{ .Labels.severity }}
-          {{ end }}
-          {{ end }}
+        message: '{{ template "telegram2.message" . }}'
 #https://api.telegram.org/botTHERE_TOKEN/getUpdates 
 
  # tz "Etc/GMT-5" = часовой пояс +5, изменить на нужный 
