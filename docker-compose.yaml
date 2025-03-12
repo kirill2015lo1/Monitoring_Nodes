@@ -46,6 +46,7 @@ services:
     command:
       - '--config.file=/etc/alertmanager/alertmanager.yaml'
     volumes:
+      - ./alertmanager/telegram_msg.tmpl:/etc/alertmanager/templates/telegram_msg.tmpl
       - alertdata:/alertmanager
       - ./alertmanager/alertmanager.yaml:/etc/alertmanager/alertmanager.yaml # Монтирование конфигурации Alertmanager
     depends_on:
