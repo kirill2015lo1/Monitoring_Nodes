@@ -78,13 +78,13 @@ groups:
           summary: "Занятое место больше 90 процентов у LXC: {{ $labels.id }}"  # Описание алерта
           description: "-"
 
-      - alert: LONG_REPLICA_DURATION_PROXMOX  # Название алерта
-        expr: pve_replication_duration_seconds{job='proxmox'}   > 900
+      - alert: LONG_TIME_NO_REPLICA_PROXMOX  # Название алерта
+        expr: (time() - pve_replication_last_sync_timestamp_seconds) > 900
         for: 1s  # Если условие выполняется более 1s 
         labels:
           severity: Warning  # Степень важности алерта
         annotations:
-          summary: "Длительность репликации больше 15 минут у ВМ или LXC: {{ $labels.id }} на ноде {{ $labels.server }}"  # Описание алерта
+          summary: "Успешном репликации не было больше 1 часа у ВМ или LXC: {{ $labels.id }} на ноде {{ $labels.server }}"  # Описание алерта
           description: "-"
 
       - alert: NODE_POWEROFF  
