@@ -21,7 +21,7 @@ groups:
           description: "-"
 
       - alert: HIGH_IO_DELAY  # Название алерта
-        expr:   sum(increase(node_cpu_seconds_total{mode="iowait", job="node_exporter"}[30s])) by(server)/ sum(increase(node_cpu_seconds_total{job="node_exporter"}[30s])) by(server) > 0.2
+        expr:   sum by (server) (rate(node_cpu_seconds_total{job="node_exporter", mode="iowait"}[1m])) / (sum by (server) (rate(node_cpu_seconds_total{job="node_exporter"}[1m])) > 0) > 2
         for: 1s  # Если условие выполняется более 1s 
         labels:
           severity: Critical  # Степень важности алерта
