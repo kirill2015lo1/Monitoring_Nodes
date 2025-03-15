@@ -18,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 19,
+  "id": 23,
   "links": [],
   "panels": [
     {
@@ -906,10 +906,11 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
+      "description": "",
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "thresholds"
+            "mode": "palette-classic"
           },
           "custom": {
             "axisBorderShow": false,
@@ -945,18 +946,7 @@
             }
           },
           "fieldMinMax": false,
-          "mappings": [
-            {
-              "options": {
-                "0": {
-                  "color": "green",
-                  "index": 0,
-                  "text": "ok"
-                }
-              },
-              "type": "value"
-            }
-          ],
+          "mappings": [],
           "min": 0,
           "thresholds": {
             "mode": "absolute",
@@ -971,7 +961,7 @@
               }
             ]
           },
-          "unit": "fails"
+          "unit": "s"
         },
         "overrides": []
       },
@@ -981,7 +971,7 @@
         "x": 0,
         "y": 32
       },
-      "id": 5,
+      "id": 15,
       "options": {
         "legend": {
           "calcs": [
@@ -1008,13 +998,13 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "pve_replication_failed_syncs ",
+          "expr": "time() - pve_replication_last_sync_timestamp_seconds",
           "legendFormat": "VM/LXC id: {{id}}",
           "range": true,
           "refId": "A"
         }
       ],
-      "title": "Replica fails in row / Количество ошибок репликации подряд",
+      "title": "Last replica was / Сколько времени назад была успешная репликация",
       "type": "timeseries"
     },
     {
@@ -1022,7 +1012,7 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "Или последней, или которая еще продолжается",
+      "description": "Репликации, которые еще не сделались до конца, не отображаются ",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1120,7 +1110,123 @@
           "refId": "A"
         }
       ],
-      "title": "Replica duration / Длительность репликации",
+      "title": "last replica duration / Длительность последней репликации",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "fieldMinMax": false,
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "color": "green",
+                  "index": 0,
+                  "text": "ok"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 1
+              }
+            ]
+          },
+          "unit": "fails"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 24,
+        "x": 0,
+        "y": 41
+      },
+      "id": 5,
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true,
+          "sortBy": "Last *",
+          "sortDesc": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.5.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "editorMode": "code",
+          "expr": "pve_replication_failed_syncs ",
+          "legendFormat": "VM/LXC id: {{id}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Replica fails in row / Количество ошибок репликации подряд",
       "type": "timeseries"
     },
     {
@@ -1202,7 +1308,7 @@
         "h": 9,
         "w": 12,
         "x": 0,
-        "y": 41
+        "y": 50
       },
       "id": 14,
       "options": {
@@ -1317,7 +1423,7 @@
         "h": 9,
         "w": 12,
         "x": 12,
-        "y": 41
+        "y": 50
       },
       "id": 10,
       "options": {
@@ -1440,6 +1546,6 @@
   "timezone": "",
   "title": "2. Proxmox metrics monitoring (pve-exporter)",
   "uid": "eedc5y44xj4sgc",
-  "version": 3,
+  "version": 4,
   "weekStart": ""
 }
