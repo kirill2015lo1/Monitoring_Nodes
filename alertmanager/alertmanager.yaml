@@ -1,5 +1,5 @@
 global:
-  resolve_timeout: 15s  # Время ожидания для подтверждения разрешения алерта.
+  resolve_timeout: 2m  # Время ожидания для подтверждения разрешения алерта.
 
 templates:
   - '/etc/alertmanager/templates/telegram_msg.tmpl'  # Укажите путь к файлу с шаблоном
