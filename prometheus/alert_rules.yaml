@@ -79,7 +79,7 @@ groups:
           description: "-"
 
       - alert: LONG_TIME_NO_REPLICA_PROXMOX  # Название алерта
-        expr: (time() - pve_replication_last_sync_timestamp_seconds) > 900
+        expr: (time() - pve_replication_last_sync_timestamp_seconds) > 3600
         for: 1s  # Если условие выполняется более 1s 
         labels:
           severity: Warning  # Степень важности алерта
