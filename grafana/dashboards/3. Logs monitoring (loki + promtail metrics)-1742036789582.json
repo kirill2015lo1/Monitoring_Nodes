@@ -18,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 13,
+  "id": 20,
   "links": [],
   "panels": [
     {
@@ -733,7 +733,7 @@
           "query": "label_values(up{job=\"promtail\"},server)",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
-        "refresh": 1,
+        "refresh": 2,
         "regex": "",
         "type": "query"
       },
@@ -792,7 +792,7 @@
           "stream": "",
           "type": 1
         },
-        "refresh": 1,
+        "refresh": 2,
         "regex": "",
         "type": "query"
       },
@@ -827,7 +827,7 @@
     ]
   },
   "time": {
-    "from": "now-3h",
+    "from": "now-1h",
     "to": "now"
   },
   "timepicker": {
@@ -840,6 +840,6 @@
   "timezone": "browser",
   "title": "3. Logs monitoring (loki + promtail metrics)",
   "uid": "1231321",
-  "version": 1,
+  "version": 4,
   "weekStart": ""
 }

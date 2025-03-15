@@ -18,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 16,
+  "id": 19,
   "links": [],
   "panels": [
     {
@@ -1404,7 +1404,7 @@
           "query": "label_values(pve_node_info{job=\"proxmox\"},instance)",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
-        "refresh": 1,
+        "refresh": 2,
         "regex": "",
         "sort": 1,
         "type": "query"
@@ -1440,6 +1440,6 @@
   "timezone": "",
   "title": "2. Proxmox metrics monitoring (pve-exporter)",
   "uid": "eedc5y44xj4sgc",
-  "version": 2,
+  "version": 3,
   "weekStart": ""
 }

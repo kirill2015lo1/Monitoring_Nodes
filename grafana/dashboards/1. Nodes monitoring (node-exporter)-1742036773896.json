@@ -18,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 17,
+  "id": 18,
   "links": [],
   "panels": [
     {
@@ -2323,7 +2323,7 @@
           "query": "label_values(node_dmi_info{job=\"node_exporter\"},instance)",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
-        "refresh": 1,
+        "refresh": 2,
         "regex": "",
         "type": "query"
       },
@@ -2401,7 +2401,7 @@
           "query": "label_values(node_network_iface_link,device)",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
-        "refresh": 1,
+        "refresh": 2,
         "regex": "^en.*",
         "type": "query"
       },
