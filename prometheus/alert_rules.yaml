@@ -82,7 +82,7 @@ groups:
         expr: pve_replication_duration_seconds{job='proxmox'}   > 900
         for: 1s  # Если условие выполняется более 1s 
         labels:
-          severity: Critical  # Степень важности алерта
+          severity: Warning  # Степень важности алерта
         annotations:
           summary: "Длительность репликации больше 15 минут у ВМ или LXC: {{ $labels.id }} на ноде {{ $labels.server }}"  # Описание алерта
           description: "-"
