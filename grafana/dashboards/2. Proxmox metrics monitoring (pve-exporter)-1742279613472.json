@@ -18,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 23,
+  "id": 26,
   "links": [],
   "panels": [
     {
@@ -118,7 +118,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "(pve_cpu_usage_ratio{instance=\"$node\"}  * on(id, instance) group_left(name, type) pve_guest_info) and on(id, instance) pve_up == 1",
+          "expr": "(pve_cpu_usage_ratio{instance=\"$node\"}  * on(id, instance) group_left(name,type,node) pve_guest_info) and on(id, instance) pve_up == 1",
           "legendFormat": "{{id}} {{name}} ",
           "range": true,
           "refId": "A"
@@ -222,7 +222,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "(pve_cpu_usage_limit{instance=\"$node\"}  * on(id, instance) group_left(name, type) pve_guest_info) and on(id, instance) pve_up == 1",
+          "expr": "(pve_cpu_usage_limit{instance=\"$node\"}  * on(id, instance) group_left(name,type,node) pve_guest_info) and on(id, instance) pve_up == 1",
           "legendFormat": "{{id}} {{name}} ",
           "range": true,
           "refId": "A"
@@ -328,7 +328,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "(pve_memory_usage_bytes{instance=\"$node\"} / pve_memory_size_bytes * on(id, instance) group_left(name, type) pve_guest_info) and on(id, instance) pve_up == 1",
+          "expr": "(pve_memory_usage_bytes{instance=\"$node\"} / pve_memory_size_bytes * on(id, instance) group_left(name,type,node)pve_guest_info) and on(id, instance) pve_up == 1",
           "legendFormat": "{{id}} {{name}} ",
           "range": true,
           "refId": "A"
@@ -432,7 +432,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "(pve_memory_size_bytes{instance=\"$node\"}  * on(id, instance) group_left(name, type) pve_guest_info) and on(id, instance) pve_up == 1",
+          "expr": "(pve_memory_size_bytes{instance=\"$node\"}  * on(id, instance) group_left(name,type,node)pve_guest_info) and on(id, instance) pve_up == 1",
           "legendFormat": "{{id}} {{name}} ",
           "range": true,
           "refId": "A"
@@ -547,7 +547,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "rate(pve_disk_write_bytes{instance=\"$node\"}[$interval]) \r\n* on(id, instance) group_left(name, type) pve_guest_info\r\nand on(id, instance) pve_up == 1\r\n",
+          "expr": "rate(pve_disk_write_bytes{instance=\"$node\"}[$interval]) \r\n* on(id, instance) group_left(name,type,node) pve_guest_info\r\nand on(id, instance) pve_up == 1\r\n",
           "legendFormat": "{{id}} {{name}} ",
           "range": true,
           "refId": "A"
@@ -662,7 +662,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "rate(pve_disk_read_bytes{instance=\"$node\"}[$interval]) \r\n* on(id, instance) group_left(name, type) pve_guest_info\r\nand on(id, instance) pve_up == 1\r\n",
+          "expr": "rate(pve_disk_read_bytes{instance=\"$node\"}[$interval]) \r\n* on(id, instance) group_left(name,type,node) pve_guest_info\r\nand on(id, instance) pve_up == 1\r\n",
           "legendFormat": "{{id}} {{name}} ",
           "range": true,
           "refId": "A"
@@ -777,7 +777,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "(rate(pve_network_receive_bytes{instance=\"$node\"}[$interval]) * on(id, instance) group_left(name, type) pve_guest_info) and on(id, instance) pve_up == 1",
+          "expr": "(rate(pve_network_receive_bytes{instance=\"$node\"}[$interval]) * on(id, instance) group_left(name,type,node) pve_guest_info) and on(id, instance) pve_up == 1",
           "legendFormat": "{{id}} {{name}} ",
           "range": true,
           "refId": "A"
@@ -892,7 +892,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "(rate(pve_network_transmit_bytes{instance=\"$node\"}[$interval]) * on(id, instance) group_left(name, type) pve_guest_info) and on(id, instance) pve_up == 1",
+          "expr": "(rate(pve_network_transmit_bytes{instance=\"$node\"}[$interval]) * on(id, instance) group_left(name,type,node) pve_guest_info) and on(id, instance) pve_up == 1",
           "legendFormat": "{{id}} {{name}} ",
           "range": true,
           "refId": "A"
@@ -1336,7 +1336,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "(pve_disk_usage_bytes{instance=\"$node\", id=~\"lxc/.+\"} / \r\n pve_disk_size_bytes{instance=\"$node\", id=~\"lxc/.+\"}) \r\n* on(id, instance) group_left(name, type) pve_guest_info\r\n",
+          "expr": "(pve_disk_usage_bytes{instance=\"$node\", id=~\"lxc/.+\"} / \r\n pve_disk_size_bytes{instance=\"$node\", id=~\"lxc/.+\"}) \r\n* on(id, instance) group_left(name,type,node) pve_guest_info\r\n",
           "legendFormat": " {{id}} {{name}}",
           "range": true,
           "refId": "A"
@@ -1546,6 +1546,6 @@
   "timezone": "",
   "title": "2. Proxmox metrics monitoring (pve-exporter)",
   "uid": "eedc5y44xj4sgc",
-  "version": 4,
+  "version": 2,
   "weekStart": ""
 }
