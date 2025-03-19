@@ -5,7 +5,7 @@ templates:
   - '/etc/alertmanager/templates/telegram_msg.tmpl'  # Укажите путь к файлу с шаблоном
   
 route:
-  group_by: ['server'] 
+  group_by: ['server','id','alertname','instance','job']
   receiver: 'telegram'  # Уведомления по умолчанию будут отправляться
   
   routes:
